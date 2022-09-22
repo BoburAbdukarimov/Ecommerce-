@@ -148,6 +148,10 @@ const ContentOne = styled.div`
 const ContentTwo = styled.div`
 ` 
 const Hamburger = styled.div`
+display: none;
+@media screen and (max-width: 600px) {
+ display: block;
+}
   
 `
 

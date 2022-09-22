@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faLink } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom';
+import { faBars, faClose, faLink } from '@fortawesome/free-solid-svg-icons'
+import {Link } from 'react-router-dom';
+import Modal from './Modal';
 
 const Header = () => {
+  const [modal, setModal] = useState(false);
+
+  const modalFunc = ()=>{
+    setModal(!modal)
+  }
     return (
        <Headers>
            <Container>
                <Row>
                 <Left>
-                    <FontAwesomeIcon icon={faLink} className="icon" />
+                    <FontAwesomeIcon icon={faLink} className="icon"  />
                     Toplink
                 </Left>
                 <Right>
@@ -29,6 +35,12 @@ const Header = () => {
 									</ContentTwo>
                     
                 </Right>
+                <Hamburger onClick={modalFunc}>
+                  <FontAwesomeIcon icon={modal ? faClose : faBars} className="hamburger" />
+                  {
+                    modal ? <Modal /> : ""
+                  }
+                </Hamburger>
                </Row>
            </Container>
        </Headers>
@@ -37,12 +49,12 @@ const Header = () => {
 
 const Headers = styled.div`
     width: 100%;
-    padding: 20px 20px;
+    padding: 20px 10px;
     background-color: #E8E9F1;
 
 `
 const Container = styled.div`
-   width: 80%;
+   width: 95%;
    margin: 0 auto;
 
 `
@@ -50,6 +62,10 @@ const Row = styled.div`
    display: flex;
    justify-content: space-between;
    align-items: center;
+   @media screen and (max-width: 600px) {
+    display: flex;
+    justify-content: space-between;
+}
 
 `
 const Left = styled.a`
@@ -64,6 +80,9 @@ const Right = styled.div`
 color: #b4dcff;
 display: flex;
 justify-content: space-between;
+@media screen and (max-width: 600px) {
+    display: none;
+}
 `
 
 const Alinks = styled.a`
@@ -88,7 +107,7 @@ const Alinks = styled.a`
 	}		
 `
 const Alinkk = styled.a`
-    background-color: #fff;
+    background-color: #E8E9F1;
     margin: 0 10px;
     padding: 12px 24px;
 		border-radius: 5px;
@@ -124,8 +143,12 @@ const Alink = styled.a`
 const ContentOne = styled.div`
   margin-right: 60px;
 	display: inline-block;
+
 ` 
 const ContentTwo = styled.div`
 ` 
+const Hamburger = styled.div`
+  
+`
 
 export default Header;

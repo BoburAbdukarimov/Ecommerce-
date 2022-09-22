@@ -15,10 +15,13 @@ const Header = () => {
        <Headers>
            <Container>
                <Row>
-                <Left>
+                <Link to="/">
+                  <Left>
                     <FontAwesomeIcon icon={faLink} className="icon"  />
                     Toplink
                 </Left>
+                </Link>
+             
                 <Right>
 									<ContentOne>
 									  <Alink href="#">u qanday ishlaydi</Alink>

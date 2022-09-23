@@ -5,6 +5,7 @@
   box-sizing: border-box;
   text-decoration: none;
   font-family: 'Open Sans', sans-serif;
+  scroll-behavior: smooth;
 }
 .icon{
   color: #fff;

@@ -1,22 +1,87 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAt, faUnlockKeyhole} from '@fortawesome/free-solid-svg-icons'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios"
+import { useNavigate } from "react-router-dom";
+
 
 
 const Login = () => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+		
+		
+		const navigate = useNavigate();
+
+    const creatdata = (e) => {
+			e.preventDefault()
+    //api bn ishaymiz
+		axios.post("http://207.154.246.125:8888/login", {
+			email: email,
+			password: password
+		})	
+		.then(res => {
+			console.log(res);
+			toast.success("Success Notification !", {
+				position: toast.POSITION.TOP_RIGHT
+			});
+			navigate("/");
+		}).catch(err =>{
+			console.log(err);
+			toast.error("Error Notification !", {
+        position: toast.POSITION.TOP_LEFT
+      });
+		
+		})
+    //api bn ishaymiz
+
+
+      
+    
+    }
+
+    const input = document.querySelector("#firstName");
+
+    const validateFunc = (e) =>{
+     if(e.target.value.length < 4){
+        input.style.border = "2px solid red"
+     }
+    }
+
     return (
         <LoginStyle>
             <Row>
+            <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            />
                 <LoginTitle>Kirish</LoginTitle>
                 <LoginText>Barcha xarajatlar va daromadlaringizni bir joyda kuzatib borish uchun hozir tizimga kiring!</LoginText>
                 <LoginForm>
                     <form>
                         <RegisterBox>
-                        <RegisterLabel>elektron pochta</RegisterLabel>
+                        <RegisterLabel htmlFor='firstName' >elektron pochta</RegisterLabel>
 												<IconInput>
-												   <RegisterInput type="text" placeholder='Ex: abc@example.com' />
+												   <RegisterInput 
+                                                   id='firstName'
+                                                   name='firstName'
+                                                   type="email" 
+                                                   placeholder='Ex: abc@example.com' 
+                                                   onChange={(e) => setEmail(e.target.value)} 
+                                                   onBlur={validateFunc}
+                                                   />
+                                                   
                            <FontAwesomeIcon icon={faAt} className="inputIcon" />
 											 </IconInput>
                      
@@ -26,14 +91,18 @@ const Login = () => {
                        <RegisterBox>
                        <RegisterLabel>Parol</RegisterLabel>
                        <IconInput>
-                          <RegisterInput type="password" placeholder='**********' />
+                          <RegisterInput 
+													type="password"
+													 placeholder='**********'
+													 onChange={(e) => setPassword(e.target.value)}
+													  />
 					    	<FontAwesomeIcon icon={faUnlockKeyhole} className="inputIcon" />
                        </IconInput>
                        
                         <Link to="/forgot">
                         <RegisterAround>Parolni unutdingizmi?</RegisterAround>
                         </Link>
-                        <RegisterBtn>Kirish</RegisterBtn>
+                        <RegisterBtn onClick={creatdata}>Kirish</RegisterBtn>
                        </RegisterBox>
                        <RegisterBlok>
                         <AccountNot>Accountingiz mavjud emasmi?</AccountNot>

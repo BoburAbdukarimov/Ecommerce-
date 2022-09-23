@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
 
-const ForgotPas = () => {
+const Verification = () => {
     const [checkmail, setCheckmail] = useState("")
 
 		const navigate = useNavigate()
@@ -17,7 +17,7 @@ const ForgotPas = () => {
         e.preventDefault()
 
             // api
-                axios.post("http://207.154.246.125:8888/checkemail", {
+                axios.post("http://207.154.246.125:8888/verificationcode", {
                     email: checkmail
                     })
                     .then(res => {
@@ -25,12 +25,14 @@ const ForgotPas = () => {
                         toast.success("Success Notification !", {
                             position: toast.POSITION.TOP_RIGHT
                         });
-                        navigate("/verification")
+                        navigate("/account")
                     }).catch(err =>{
                         console.log(err);
                         toast.error("Error Notification !", {
                             position: toast.POSITION.TOP_LEFT
                           });
+                        navigate("/verification")
+
                     })
             // api
     
@@ -56,8 +58,8 @@ const ForgotPas = () => {
                     <RegisterLabel>elektron pochta</RegisterLabel>
                     <IconInput>
                          <RegisterInput 
-                         type="email" 
-                         placeholder='Ex. Saul Ramirez' 
+                         type="text" 
+                         placeholder='EX: 123456' 
                          onChange={(e) => setCheckmail(e.target.value)}
                          />
 					    	<FontAwesomeIcon icon={faAt} className="inputIcon" />
@@ -70,4 +72,4 @@ const ForgotPas = () => {
     );
 };
 
-export default ForgotPas;
+export default Verification;

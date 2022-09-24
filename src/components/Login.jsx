@@ -10,9 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const Login = () => {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+const Login = ({email, setEmail, password, setPassword}) => {
     const [arr, setArr] = useState("")
     const [style, setStyle] = useState({})
 		
@@ -22,18 +20,32 @@ const Login = () => {
     const creatdata = (e) => {
 			e.preventDefault()
     //api bn ishaymiz
-		axios.post("http://207.154.246.125:8888/login", {
-			email: email,
-			password: password
-		})	
-		.then(res => {
+
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type",
+    "application/json");
+
+    let raw = JSON.stringify({
+        "email": email,
+        "password": password,
+    });
+
+    let requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+    };
+		axios.post("http://207.154.246.125:8888/login", requestOptions)	
+        .then(res => {
 			console.log(res);
 			toast.success("Success Notification !", {
 				position: toast.POSITION.TOP_RIGHT
 			});
 			navigate("/account");
-		}).catch(err =>{
-			console.log(err);
+		})
+        .catch(err =>{
+			console.log("err", err);
 			toast.error("Error Notification !", {
         position: toast.POSITION.TOP_LEFT
       });
@@ -47,7 +59,7 @@ const Login = () => {
 
      // validation
      let style = {}
-     if(email === ""){
+     if(email === "" || password === ""){
         style = {
           border : "2px solid red"
         }
@@ -91,6 +103,7 @@ const Login = () => {
    
 
         setEmail(elInputValue)
+        setPassword(elInputValue)
    }
     // onchange
 

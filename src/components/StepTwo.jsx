@@ -37,17 +37,8 @@ const StepTwo = ({link, setLink}) => {
     //api bn ishaymiz
 
 
-      
-    
     }
 
-    const input = document.querySelector("#firstName");
-
-    const validateFunc = (e) =>{
-     if(e.target.value.length < 4){
-        input.style.border = "2px solid red"
-     }
-    }
 
     return (
         <LoginStyle>
@@ -76,7 +67,6 @@ const StepTwo = ({link, setLink}) => {
                                                type="email" 
                                                placeholder='Ex: abc@example.com' 
                                                onChange={(e) => setEmail(e.target.value)} 
-                                               onBlur={validateFunc}
                                                />
                                                
                        <FontAwesomeIcon icon={faAt} className="inputIcon" />
@@ -108,14 +98,14 @@ const StepTwo = ({link, setLink}) => {
                                                type="text" 
                                                placeholder='Ex. Saul Ramirez' 
                                                onChange={(e) => setLink(e.target.value)} 
-                                               onBlur={validateFunc}
                                                />
                                                
                        <FontAwesomeIcon icon={faLink} className="inputIcon" />
                                          </IconInput>
                                          <Link to="/forgot">
+                                         <RegisterBtn onClick={creatdata}>Qabul qilish</RegisterBtn>
                     </Link>
-                    <RegisterBtn onClick={creatdata}>Qabul qilish</RegisterBtn>
+                   
                  
                                             
                     </RegisterBox>

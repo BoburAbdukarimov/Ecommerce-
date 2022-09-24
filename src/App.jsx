@@ -12,16 +12,35 @@ import Verification from './components/Verificaon';
 
 function App() {
   const [link, setLink] = useState("")
+  const [name, setName] = useState("")
+  const [number, setNumber] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   return (
     <div className="App">
     <BrowserRouter>
      <Header />
      <Routes>
-      <Route path="/login" element={<Login />}  />
-      <Route path="/register" element={<Register />}  />
+      <Route path="/login" element={<Login 
+       email={email}
+       setEmail={setEmail}
+       password={password}
+       setPassword={setPassword}
+        />}  />
+      <Route path="/register" element={<Register
+        link={link}
+        setLink={setLink}
+        name={name}
+        setName={setName}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        number={number}
+        setNumber={setNumber}
+        />}  />
       <Route path="/forgot" element={<ForgotPas />}  />
-      <Route path="/stepTwo" element={<StepTwo link={link} setLink={setLink} />}  />
       <Route path="/account" element={<Account link={link} />}  />
       <Route path="/verification" element={<Verification />}  />
      </Routes>

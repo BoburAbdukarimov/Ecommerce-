@@ -18,7 +18,7 @@ const Verification = () => {
 
             // api
                 axios.post("http://207.154.246.125:8888/verificationcode", {
-                    email: checkmail
+                    number: checkmail
                     })
                     .then(res => {
                         console.log(res);

@@ -31,6 +31,7 @@ const ForgotPas = () => {
                         toast.error("Error Notification !", {
                             position: toast.POSITION.TOP_LEFT
                           });
+													navigate("/forgot")
                     })
             // api
     

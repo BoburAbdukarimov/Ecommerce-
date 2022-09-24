@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [arr, setArr] = useState("")
+    const [style, setStyle] = useState({})
 		
 		
 		const navigate = useNavigate();
@@ -29,28 +31,70 @@ const Login = () => {
 			toast.success("Success Notification !", {
 				position: toast.POSITION.TOP_RIGHT
 			});
-			navigate("/");
+			navigate("/account");
 		}).catch(err =>{
 			console.log(err);
 			toast.error("Error Notification !", {
         position: toast.POSITION.TOP_LEFT
       });
+			navigate("/login");
+
 		
 		})
     //api bn ishaymiz
+
+    //////////////// 
+
+     // validation
+     let style = {}
+     if(email === ""){
+        style = {
+          border : "2px solid red"
+        }
+     }else{
+        style = {
+            border: "2px solid green"
+        }
+     }
+     setStyle(style)
+
+   
+    // validation
 
 
       
     
     }
 
-    const input = document.querySelector("#firstName");
+    // onchange
+    const validateChange =(e)=>{
+        let elInputName = e.target.name;
+        let elInputValue = e.target.value;
+        let a = {[elInputName] : elInputValue}
+        
 
-    const validateFunc = (e) =>{
-     if(e.target.value.length < 4){
-        input.style.border = "2px solid red"
-     }
-    }
+        let style = {}
+        
+        if(a[elInputName] === ""){
+           style = {
+             border : "2px solid red"
+           }
+				   setArr("To'ldirish majburiy!")
+        }else{
+           style = {
+               border: "2px solid green"
+           }
+					 setArr("")
+
+        }
+        setStyle(style)
+   
+
+        setEmail(elInputValue)
+   }
+    // onchange
+
+   
 
     return (
         <LoginStyle>
@@ -68,23 +112,23 @@ const Login = () => {
             />
                 <LoginTitle>Kirish</LoginTitle>
                 <LoginText>Barcha xarajatlar va daromadlaringizni bir joyda kuzatib borish uchun hozir tizimga kiring!</LoginText>
-                <LoginForm>
-                    <form>
+                    <form >
                         <RegisterBox>
                         <RegisterLabel htmlFor='firstName' >elektron pochta</RegisterLabel>
 												<IconInput>
 												   <RegisterInput 
+                                                   style={style}
                                                    id='firstName'
                                                    name='firstName'
                                                    type="email" 
                                                    placeholder='Ex: abc@example.com' 
-                                                   onChange={(e) => setEmail(e.target.value)} 
-                                                   onBlur={validateFunc}
+                                                   onChange={validateChange} 
                                                    />
+																									 
                                                    
                            <FontAwesomeIcon icon={faAt} className="inputIcon" />
 											 </IconInput>
-                     
+										 <p style={{color: "red"}}>{arr} </p>
 												
                         </RegisterBox>
                        
@@ -92,17 +136,20 @@ const Login = () => {
                        <RegisterLabel>Parol</RegisterLabel>
                        <IconInput>
                           <RegisterInput 
+                                                    style={style}
 													type="password"
 													 placeholder='**********'
-													 onChange={(e) => setPassword(e.target.value)}
+													 onChange={validateChange}
 													  />
 					    	<FontAwesomeIcon icon={faUnlockKeyhole} className="inputIcon" />
                        </IconInput>
+										 <p style={{color: "red"}}>{arr} </p>
                        
                         <Link to="/forgot">
                         <RegisterAround>Parolni unutdingizmi?</RegisterAround>
                         </Link>
-                        <RegisterBtn onClick={creatdata}>Kirish</RegisterBtn>
+                        <RegisterBtn type='submit' onClick={creatdata}>Kirish</RegisterBtn>
+                        
                        </RegisterBox>
                        <RegisterBlok>
                         <AccountNot>Accountingiz mavjud emasmi?</AccountNot>
@@ -111,7 +158,6 @@ const Login = () => {
                         </Link>
                         </RegisterBlok>
                     </form>
-                </LoginForm>
             </Row>
         </LoginStyle>
     );
@@ -154,9 +200,6 @@ const LoginText = styled.p`
     text-overflow: ellipsis;
     white-space: wrap;
     width: 360px;
-`
-const LoginForm = styled.div`
-    
 `
 const RegisterBox = styled.div`
         display: flex;

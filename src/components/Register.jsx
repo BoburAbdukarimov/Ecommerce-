@@ -23,8 +23,8 @@ const Register = () => {
 
             // api
                 axios.post("http://207.154.246.125:8888/register", {
-                    email: name,
-                    password: number
+                    fullname: name,
+                    phone: number
                     })
                     .then(res => {
                         console.log(res);
@@ -41,6 +41,11 @@ const Register = () => {
             // api
     
     }
+
+
+    // Java script validation
+    
+    // Java script validation
     return (
         <LoginStyle>
                <ToastContainer

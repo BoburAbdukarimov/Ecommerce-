@@ -7,10 +7,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
-const StepTwo = () => {
+const StepTwo = ({link, setLink}) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [link, setLink] = useState("")
 		
 		
 		const navigate = useNavigate();
@@ -21,7 +20,7 @@ const StepTwo = () => {
 		axios.post("http://207.154.246.125:8888/register", {
 			email: email,
 			password: password,
-            link: link
+            username: link
 		})	
 		.then(res => {
 			console.log(res);
@@ -87,9 +86,11 @@ const StepTwo = () => {
                     </RegisterBox>
                    
                    <RegisterBox>
-                   <RegisterLabel>Parol</RegisterLabel>
+                   <RegisterLabel htmlFor='password'>Parol</RegisterLabel>
                    <IconInput>
                       <RegisterInput 
+                                                name='password'
+                                                id='password'
                                                 type="password"
                                                  placeholder='**********'
                                                  onChange={(e) => setPassword(e.target.value)}
